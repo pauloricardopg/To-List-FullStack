@@ -16,7 +16,7 @@ const ButtonActions = ({ task }) => {
     const deleteTask = async () => {
         try {
             const response = await ApiTask.delete(`/task/${task.id}`);
-            setList(response.data);
+            setList(Array.isArray(response.data) ? response.data : []);
         } catch (error) {
             console.error("Erro ao deletar a tarefa:", error);
         }
@@ -26,7 +26,7 @@ const ButtonActions = ({ task }) => {
         try {
             
             const response = await ApiTask.put(`/task/${task.id}`, { completed: !task.completed });
-            setList(response.data);
+            setList(Array.isArray(response.data) ? response.data : []);
         } catch (error) {
             console.error("Erro ao atualizar status da tarefa:", error);
         }
@@ -37,7 +37,7 @@ const ButtonActions = ({ task }) => {
         try {
             
             const response = await ApiTask.put(`/task/${task.id}`, { task: taskText });
-            setList(response.data);
+            setList(Array.isArray(response.data) ? response.data : []);
             
         
             setIsEditing(false);

@@ -13,7 +13,7 @@ const AddToList = () => {
             try {
                 const response = await ApiTask.post('/task', { task: taskText });
                 setTaskText(''); 
-                setList(response.data);
+                setList(Array.isArray(response.data) ? response.data : []);
             } catch (error) {
                 console.error("Erro ao adicionar a tarefa:", error);
             }
