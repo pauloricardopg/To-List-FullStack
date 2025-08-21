@@ -12,7 +12,7 @@ export const ContextListProvider = ({ children }) => {
         const fetchTasks = async () => {
             try {
                 const response = await ApiTask.get('/task');
-                setList(response.data);
+                setList(Array.isArray(response.data) ? response.data : []);
             } catch (error) {
                 console.error("Erro ao buscar as tarefas:", error);
             }
