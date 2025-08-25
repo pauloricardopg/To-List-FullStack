@@ -6,14 +6,19 @@ const ApiTask = axios.create({
     baseURL: BASE_URL
 });
 
-ApiTask.interceptors.request.use(request => {
-    return request;
-});
-
-ApiTask.interceptors.response.use(response => {
-    return response;
-}, error => {
-    return Promise.reject(error);
-});
+ApiTask.interceptors.request.use(
+    (config) => {
+        const token = localStorage.getItem('token');
+        
+        if (token) {
+            config.headers['Authorization'] = `Bearer ${token}`;
+        }
+        
+        return config;
+    }, 
+    (error) => {
+        return Promise.reject(error);
+    }
+);
 
 export default ApiTask;
